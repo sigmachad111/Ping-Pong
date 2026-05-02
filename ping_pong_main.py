@@ -23,18 +23,26 @@ class Player(GameSprite):
         keys_pressed = key.get_pressed()
         if keys_pressed[K_w] and self.rect.y > 10:
             self.rect.y -= self.speed
-        if keys_pressed[K_s] and self.rect.y < 590:
+        if keys_pressed[K_s] and self.rect.y < 420:
             self.rect.y += self.speed
     def movement2(self):
         keys_pressed = key.get_pressed()
         if keys_pressed[K_UP] and self.rect.y > 10:
             self.rect.y -= self.speed
-        if keys_pressed[K_DOWN] and self.rect.y < 590:
+        if keys_pressed[K_DOWN] and self.rect.y < 420:
             self.rect.y += self.speed
+first_racket = Player('ракетка.png',30,250,1,20,70)
+second_racket = Player('ракетка.png',670,250,1,20,70)
+ball = GameSprite('мяч.jpg',350,250,3,50,50)
 while game:
+    window.fill(BLUE)
     events = event.get()
     for i in events:
         if i.type == QUIT:
             game = False
-    window.fill(BLUE)    
+    first_racket.reset()
+    first_racket.movement1()  
+    second_racket.reset()
+    second_racket.movement2()
+    ball.reset()
     display.update()

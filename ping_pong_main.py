@@ -3,13 +3,16 @@ font.init()
 font = font.Font(None,50)
 count1 = 0
 count2 = 0
-font1 = font.render("Player 1 loses",True,(255, 0, 0))
-font2 = font.render("Player 2 loses",True,(255,0,0))
+font1 = font.render("Player 1 lost",True,(255, 0, 0))
+font2 = font.render("Player 2 lost",True,(255,0,0))
 window = display.set_mode((700,500))
 display.set_caption("Пинг-Понг")
+clock = time.Clock()
+FPS = 60
 BLUE = (0, 0, 255)
 game = True
 finish = False
+
 class GameSprite(sprite.Sprite):
     def __init__(self,player_image,player_x,player_y,player_speed,sprite_width,sprite_height):
         super().__init__()
@@ -38,11 +41,12 @@ class Player(GameSprite):
             self.rect.y -= self.speed
         if keys_pressed[K_DOWN] and self.rect.y < 420:
             self.rect.y += self.speed
-first_racket = Player('ракетка.png',30.0,250.0,1.0,20,70)
-second_racket = Player('ракетка.png',670.0,250.0,1.0,20,70)
-ball = GameSprite('мяч.jpg',350.0,250.0,3,50,50)
-speed_x = 1
-speed_y = 1
+first_racket = Player('ракетка.png',30.0,250.0,5,20,70)
+second_racket = Player('ракетка.png',670.0,250.0,5,20,70)
+ball = GameSprite('мяч.jpg',350.0,250.0,15,50,50)
+speed_x = 5
+speed_y = 5
+
 while game:
     window.fill(BLUE)
     events = event.get()
@@ -74,7 +78,8 @@ while game:
             finish = True
         if ball.rect.x <= 0.0:
             window.blit(font1,(250,250))
-            finish = True
+            finish = True   
         window.blit(font11,(20,30))
         window.blit(font22,(580,30))
+        clock.tick(FPS)
         display.update()
